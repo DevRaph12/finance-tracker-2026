@@ -1,0 +1,42 @@
+/* Reset CSS - Finance App 2026 */
+
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-font-smoothing: antialiased; /* For better font rendering */
+}
+
+/* Responsive media elements */
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+input, button, textarea, select {
+    font: inherit; /* Makes form fields inherit the body's font */
+}
+
+/* Button reset */
+button {
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+/* Link reset */
+a {
+    text-decoration: none;
+    color: inherit;
+}
