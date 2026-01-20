@@ -28,5 +28,32 @@
         </div>
 
     </section>
+
+    <section id="form-container">
+        <form id="finance-form">
+            <div class="input-group">
+                <label for="desc" class="translatable" data-en="Description" data-pt="Descrição">Description</label>
+            <input type="text"  id="desc" data-en="Ex: gym" data-pt="Ex: Academia" placeholder="Ex: Gym">
+            </div>
+
+        <div class="input-group">
+            <label for="amount" class="translatable" data-en="Amount" data-pt="Valor">Amount</label>
+            <input type="number" id="amount" step="0.01" placeholder="0.00" required>
+        </div>
+
+        <div class="input-group">
+            <label for="type" class="translatable" data-en="Type" data-pt="Tipo">Type</label>
+            <select  id="type">
+                <option value="income" class="translatable" data-en="Income" data-pt="Entrada">Income</option>
+                <option value="expense" class="translatable" data-en="Expense" data-pt="Gasto">Expense</option>
+            </select>
+
+        </div>
+
+        <button type="submit" id="btn-add" class="translatable" data-en="Add" data-pt="Adicionar">Add</button>
+
+        
+        </form>
+    </section>
 </body>
 </html>
