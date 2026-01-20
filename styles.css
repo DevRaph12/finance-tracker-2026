@@ -40,3 +40,55 @@ a {
     text-decoration: none;
     color: inherit;
 }
+
+:root{
+    --bg-color: #f0f2f5; /* Light gray background */
+    --card-bg: #ffffff; /* White card background */
+    --text-color: #363f5f; /* Dark text color */
+    --income-color: #12a454; /* Green for income */
+    --expense-color: #e92929; /* Red for expenses */
+    --primary-color: #4e73df; /* Primary blue color */
+}
+
+.container {
+    width: 90%;          /* Ocupa 90% da largura da tela no celular */
+    max-width: 800px;    /* Mas não passa de 800px no computador */
+    margin: 0 auto;      /* A mágica que centraliza a caixa horizontalmente */
+    padding-top: 2rem;
+}
+
+/* Selecionamos todas as seções principais de uma vez */
+#finance-card, #resume-container, #form-container {
+    width: 90%;          /* No celular ocupa quase tudo */
+    max-width: 800px;    /* No PC trava em 800px */
+    margin: 0 auto;      /* Centraliza horizontalmente */
+    padding: 1rem;       /* Espaço interno para o conteúdo não encostar na borda da section */
+}
+
+#resume-container {
+    display: flex;  
+    justify-content: space-between; 
+    gap: 1.5rem;
+    margin-top: -2rem;
+    flex-wrap: wrap;
+}
+
+.resume-item{
+    background-color: var(--card-bg);
+    flex: 1;
+    min-width: 200px;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.resume-item.total {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
