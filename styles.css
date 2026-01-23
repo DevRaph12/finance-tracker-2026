@@ -51,9 +51,9 @@ a {
 }
 
 .container {
-    width: 90%;          /* Ocupa 90% da largura da tela no celular */
-    max-width: 800px;    /* Mas não passa de 800px no computador */
-    margin: 0 auto;      /* A mágica que centraliza a caixa horizontalmente */
+    width: 90%;          /* Takes up tp 90% of the width of the screen on mobile devices */
+    max-width: 800px;    /* 800px max on computer screens */
+    margin: 0 auto;      /* Centers horizontally */
     padding-top: 2rem;
 }
 
@@ -91,4 +91,56 @@ a {
 h1{
     text-align: center;
     margin-bottom: 1.5rem;
+}
+
+#form-container {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+}
+
+#finance-form{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.input-group input, 
+.input-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1.5px solid #ddd; 
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus, 
+.input-group select:focus {
+    outline: none;
+    border-color: var(--primary-color); /* Changes the border to blue on focus */
+}
+
+#btn-add {
+    background-color: var(--income-color); /* Green to indicate "success/addition" */
+    color: white;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-top: 10px;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+#btn-add:hover {
+    transform: translateY(-2px); 
 }
