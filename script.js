@@ -13,3 +13,8 @@ const inputType = document.querySelector("#type");
 const displayIncomes = document.querySelector("#incomes-value");
 const displayExpenses = document.querySelector("#expenses-value");  
 const displayTotal = document.querySelector("#total-value");
+
+form.addEventListener("submit", (event) => {
+    //Prevent the form from submitting normally
+    event.preventDefault();
+})
