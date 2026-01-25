@@ -13,6 +13,7 @@ const inputType = document.querySelector("#type");
 const displayIncomes = document.querySelector("#incomes-value");
 const displayExpenses = document.querySelector("#expenses-value");  
 const displayTotal = document.querySelector("#total-value");
+const transactionList = document.getElementById("transaction-list");
 
 const transactions = [];
 
