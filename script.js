@@ -15,6 +15,26 @@ const displayExpenses = document.querySelector("#expenses-value");
 const displayTotal = document.querySelector("#total-value");
 
 const transactions = [];
+
+const updateBalance = () => {
+    let totalIncomes = 0;
+    let totalExpenses = 0;
+    
+    transactions.forEach(transaction => {
+        if (transaction.type === "income") {
+            totalIncomes += transaction.amount;
+        } else {
+            totalExpenses += transaction.amount;
+        }
+    });
+
+    const total = totalIncomes - totalExpenses;
+
+    displayIncomes.textContent = `US$ ${totalIncomes.toFixed(2)}`;
+    displayExpenses.textContent = `US$ ${totalExpenses.toFixed(2)}`;
+    displayTotal.textContent = `US$ ${total.toFixed(2)}`;
+};
+
 form.addEventListener("submit", (event) => {
     //Prevent the form from submitting normally
     event.preventDefault();
@@ -31,19 +51,7 @@ form.addEventListener("submit", (event) => {
 
     transactions.push(transaction);
 
-    const updateBalance = () => {
-        let totalIncomes = 0;
-        let totalExpenses = 0;
-        transactions.forEach(transaction => {
-            if (transaction.type === "income") {
-                totalIncomes += transaction.amount;
-            } else if (transaction.type === "expense") {
-                totalExpenses += transaction.amount;
-            }
-        })
-
-        const total = totalIncomes - totalExpenses;
-    }
+    updateBalance();
 
     console.log(transactions);
 
