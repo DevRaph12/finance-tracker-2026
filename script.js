@@ -14,12 +14,13 @@ const displayIncomes = document.querySelector("#incomes-value");
 const displayExpenses = document.querySelector("#expenses-value");  
 const displayTotal = document.querySelector("#total-value");
 
+const transactions = [];
 form.addEventListener("submit", (event) => {
     //Prevent the form from submitting normally
     event.preventDefault();
     //Get the values from the input fields
     const description = inputDescription.value;
-    const amount = inputAmount.valueAsNumber;
+    const amount = inputAmount.valueAsNumber; // Convert to number
     const type = inputType.value;
 
     const transaction = {
@@ -27,5 +28,12 @@ form.addEventListener("submit", (event) => {
         amount: amount,
         type: type,
     }
+
+    transactions.push(transaction);
+
+    console.log(transactions);
+
+    //Reset the form
+    form.reset();
 
 })
