@@ -50,13 +50,27 @@ form.addEventListener("submit", (event) => {
         type: type,
     }
 
+    //Stores data
+
     transactions.push(transaction);
 
+    //Updates the amount of expenses, incomes and total balance 
     updateBalance();
 
-    console.log(transactions);
+    //Add transaction to the transaction history on screen
+    
+    addTransactionToDom(transaction);
 
     //Reset the form
     form.reset();
 
 })
+
+const addTransactionToDom = (transaction) => {
+    const li = document.createElement("li");
+    li.classList.add(transaction.type === "income" ? "income-item" : "expense-item");
+    li.innerHTML = `${transaction.description}: US$ ${transaction.amount.toFixed(2)}`;
+
+    transactionList.appendChild(li);
+
+}
