@@ -31,6 +31,20 @@ form.addEventListener("submit", (event) => {
 
     transactions.push(transaction);
 
+    const updateBalance = () => {
+        let totalIncomes = 0;
+        let totalExpenses = 0;
+        transactions.forEach(transaction => {
+            if (transaction.type === "income") {
+                totalIncomes += transaction.amount;
+            } else if (transaction.type === "expense") {
+                totalExpenses += transaction.amount;
+            }
+        })
+
+        const total = totalIncomes - totalExpenses;
+    }
+
     console.log(transactions);
 
     //Reset the form
