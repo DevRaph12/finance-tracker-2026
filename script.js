@@ -4,7 +4,7 @@ const form = document.getElementById("finance-form");
 
 //Elements for the input fields
 
-const insputDescription = document.querySelector("#desc");
+const inputDescription = document.querySelector("#desc");
 const inputAmount = document.querySelector("#amount");
 const inputType = document.querySelector("#type");
 
@@ -17,4 +17,15 @@ const displayTotal = document.querySelector("#total-value");
 form.addEventListener("submit", (event) => {
     //Prevent the form from submitting normally
     event.preventDefault();
+    //Get the values from the input fields
+    const description = inputDescription.value;
+    const amount = inputAmount.valueAsNumber;
+    const type = inputType.value;
+
+    const transaction = {
+        description: description,
+        amount: amount,
+        type: type,
+    }
+
 })
