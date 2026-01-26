@@ -15,8 +15,7 @@ const displayExpenses = document.querySelector("#expenses-value");
 const displayTotal = document.querySelector("#total-value");
 const transactionList = document.getElementById("transaction-list");
 
-const localStorageTransactions = JSON.parse(localStorage.getItem("transactions"));
-// Se o que vier do parse for nulo, ele assume o array vazio []
+
 let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
 
@@ -30,6 +29,7 @@ function updateBalance() {
         } else {
             totalExpenses += transaction.amount;
         }
+        
     });
 
     const total = totalIncomes - totalExpenses;
@@ -37,6 +37,16 @@ function updateBalance() {
     displayIncomes.textContent = `US$ ${totalIncomes.toFixed(2)}`;
     displayExpenses.textContent = `US$ ${totalExpenses.toFixed(2)}`;
     displayTotal.textContent = `US$ ${total.toFixed(2)}`;
+
+    const totalCard = document.querySelector(".total");
+
+     if (total < 0) {
+            totalCard.style.backgroundColor = "red";
+        } else if (total > 0) {
+            totalCard.style.backgroundColor = "green";
+        } else {
+            totalCard.style.backgroundColor = "black";
+        };
 }
 
 form.addEventListener("submit", (event) => {
@@ -77,10 +87,22 @@ form.addEventListener("submit", (event) => {
 const addTransactionToDom = (transaction) => {
     const li = document.createElement("li");
     li.classList.add(transaction.type === "income" ? "income-item" : "expense-item");
-    li.innerHTML = `${transaction.description}: US$ ${transaction.amount.toFixed(2)}`;
+    li.innerHTML = `${transaction.description} <span>US$ ${transaction.amount.toFixed(2)}</span>
+    <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">x</button>`;
+
+
+
 
     transactionList.appendChild(li);
 
+    
+
+}
+
+const deleteTransaction = (id) => {
+    transactions = transactions.filter(transaction => transaction.id !== id);
+    updateLocalStorage();
+    init();
 }
 
 //Block used to store data on Local Storage
