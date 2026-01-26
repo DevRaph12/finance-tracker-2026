@@ -57,12 +57,12 @@ a {
     padding-top: 2rem;
 }
 
-/* Selecionamos todas as seções principais de uma vez */
+/* Select all main sections */
 #finance-card, #resume-container, #form-container {
-    width: 90%;          /* No celular ocupa quase tudo */
-    max-width: 800px;    /* No PC trava em 800px */
-    margin: 0 auto;      /* Centraliza horizontalmente */
-    padding: 1rem;       /* Espaço interno para o conteúdo não encostar na borda da section */
+    width: 90%;          /* On mobile devices occupies most of the screen */
+    max-width: 800px;    /* On desktop stops on 800px */
+    margin: 0 auto;      /* Centers horizontally */
+    padding: 1rem;       /* Internal space so content doesn't touch the section's border */
 }
 
 #resume-container {
