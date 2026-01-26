@@ -18,6 +18,21 @@ body {
     -webkit-font-smoothing: antialiased; /* For better font rendering */
 }
 
+#language-switcher {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+#language-switcher img {
+    width: 60px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
 /* Responsive media elements */
 img, picture, video, canvas, svg {
     display: block;
@@ -161,7 +176,7 @@ li {
     border-bottom: 1px solid #eee;
 }
 
-.delete-btn {
+#delete-btn {
     background-color: transparent;
     border: none;
     color: var(--expense-color);
@@ -179,4 +194,8 @@ li {
 .description {
     font-weight: bold;
     flex-grow: 1; /*Description takes all available space*/
+}
+
+.total {
+    transition: background-color 0.5s ease;
 }

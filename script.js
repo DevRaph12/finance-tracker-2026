@@ -2,6 +2,11 @@
 
 const form = document.getElementById("finance-form");
 
+const langEnBtn = document.getElementById("en");
+const langBrBtn = document.getElementById("br");
+
+let currencySymbol = "US$";
+
 //Elements for the input fields
 
 const inputDescription = document.querySelector("#desc");
@@ -34,9 +39,9 @@ function updateBalance() {
 
     const total = totalIncomes - totalExpenses;
 
-    displayIncomes.textContent = `US$ ${totalIncomes.toFixed(2)}`;
-    displayExpenses.textContent = `US$ ${totalExpenses.toFixed(2)}`;
-    displayTotal.textContent = `US$ ${total.toFixed(2)}`;
+    displayIncomes.textContent = `${currencySymbol} ${totalIncomes.toFixed(2)}`;
+    displayExpenses.textContent = `${currencySymbol} ${totalExpenses.toFixed(2)}`;
+    displayTotal.textContent = `${currencySymbol} ${total.toFixed(2)}`;
 
     const totalCard = document.querySelector(".total");
 
@@ -88,15 +93,19 @@ const addTransactionToDom = (transaction) => {
     const li = document.createElement("li");
     li.classList.add(transaction.type === "income" ? "income-item" : "expense-item");
 
-       li.innerHTML = `
+    // Pegamos o idioma atual do localStorage para saber qual texto usar
+    const lang = localStorage.getItem("language") || "en";
+    const deleteText = lang === "pt" ? "Deletar transação" : "Delete transaction";
+
+    li.innerHTML = `
         <span class="description">${transaction.description}</span>
         <div class="amount-container">
-            <span>US$ ${transaction.amount.toFixed(2)}</span>
+            <span>${currencySymbol} ${transaction.amount.toFixed(2)}</span>
             <button 
                 class="delete-btn" 
                 onclick="deleteTransaction(${transaction.id})"
-                aria-label="Delete transaction" 
-                title="Delete transaction">
+                aria-label="${deleteText}" 
+                title="${deleteText}">
                 ❌
             </button>
         </div>
@@ -104,6 +113,7 @@ const addTransactionToDom = (transaction) => {
 
     transactionList.appendChild(li);
 };
+
 
 const deleteTransaction = (id) => {
     transactions = transactions.filter(transaction => transaction.id !== id);
@@ -117,11 +127,71 @@ const updateLocalStorage = () => {
     localStorage.setItem("transactions", JSON.stringify(transactions));
 }
 
+/*Function to switch language between English and Portuguese*/
 
-const init = () => {
+/* 1. Função que apenas traduz e salva a preferência */
+const switchLanguage = (lang) => {
+    const translatableElements = document.querySelectorAll(".translatable");
+    
+    translatableElements.forEach(element => {
+    const text = element.getAttribute(`data-${lang}`);
+    if (!text) return; // Se não achou o texto no data-attribute, pula pro próximo
+
+    if (element.tagName === "INPUT") {
+        element.placeholder = text;
+    } else if (element.tagName === "IMG") {
+        element.alt = text;
+        element.title = text;
+    } else {
+        element.textContent = text;
+    }
+
+    
+
+});
+
+    const htmlLang = lang === "pt" ? "pt-BR" : "en";
+    document.documentElement.lang = htmlLang;    // Define o atributo lang do HTML
+
+    // Define o símbolo baseado na língua
+    currencySymbol = (lang === "pt") ? "R$" : "US$";
+    
+    // Salva a escolha
+    localStorage.setItem("language", lang);
+}
+
+/* 2. Função que limpa a tela e desenha TUDO do zero */
+const renderApp = () => {
+    // Limpa a lista visual
     transactionList.innerHTML = "";
+    
+    // Desenha cada item (agora usando o símbolo novo)
     transactions.forEach(addTransactionToDom);
+    
+    // Atualiza os cartões de cima
     updateBalance();
 }
 
+/* 3. Função de inicialização (Roda uma vez ao abrir o site) */
+const init = () => {
+    // Primeiro: Descobre qual o idioma e aplica a tradução + símbolo
+    const savedLanguage = localStorage.getItem("language") || "en";
+    switchLanguage(savedLanguage);
+
+    // Segundo: Desenha a tela
+    renderApp();
+}
+
+/* 4. Eventos de clique nas bandeiras */
+langEnBtn.addEventListener("click", () => {
+    switchLanguage("en");
+    renderApp(); // Após traduzir, mandamos redesenhar a tela
+});
+
+langBrBtn.addEventListener("click", () => {
+    switchLanguage("pt");
+    renderApp(); // Após traduzir, mandamos redesenhar a tela
+});
+
+// Inicializa tudo
 init();
