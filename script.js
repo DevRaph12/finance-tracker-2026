@@ -87,17 +87,23 @@ form.addEventListener("submit", (event) => {
 const addTransactionToDom = (transaction) => {
     const li = document.createElement("li");
     li.classList.add(transaction.type === "income" ? "income-item" : "expense-item");
-    li.innerHTML = `${transaction.description} <span>US$ ${transaction.amount.toFixed(2)}</span>
-    <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">x</button>`;
 
-
-
+       li.innerHTML = `
+        <span class="description">${transaction.description}</span>
+        <div class="amount-container">
+            <span>US$ ${transaction.amount.toFixed(2)}</span>
+            <button 
+                class="delete-btn" 
+                onclick="deleteTransaction(${transaction.id})"
+                aria-label="Delete transaction" 
+                title="Delete transaction">
+                ❌
+            </button>
+        </div>
+    `;
 
     transactionList.appendChild(li);
-
-    
-
-}
+};
 
 const deleteTransaction = (id) => {
     transactions = transactions.filter(transaction => transaction.id !== id);

@@ -144,3 +144,39 @@ h1{
 #btn-add:hover {
     transform: translateY(-2px); 
 }
+
+#history h3 {
+    margin: 1.5rem 0;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+}
+
+li {
+    display: flex;
+    
+    justify-content: space-between;
+    padding: 0.8rem;
+    align-items: center;    
+    border-bottom: 1px solid #eee;
+}
+
+.delete-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--expense-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.amount-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; /*Creates space between amount and delete button*/
+}
+
+.description {
+    font-weight: bold;
+    flex-grow: 1; /*Description takes all available space*/
+}
