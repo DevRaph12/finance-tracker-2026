@@ -67,8 +67,15 @@ const addTransactionToDom = (transaction) => {
     const lang = localStorage.getItem("language") || "en";
     const deleteText = lang === "pt" ? "Deletar" : "Delete";
 
+    const transactionDate = transaction.date ? new Date(transaction.date) : new Date();
+
+    const dateFormatted = new Date(transaction.date).toLocaleDateString(lang === "pt" ? "pt-BR" : "en-US");
+
     li.innerHTML = `
+    <div class="transaction-info">
+        <span class="date">${dateFormatted}</span>
         <span class="description">${transaction.description}</span>
+    </div>
         <div class="amount-container">
             <span>${currencySymbol} ${transaction.amount.toFixed(2)}</span>
             <button class="delete-btn" onclick="deleteTransaction(${transaction.id})" title="${deleteText}">❌</button>
@@ -102,7 +109,8 @@ form.addEventListener("submit", (event) => {
         id: Math.floor(Math.random() * 1000000),
         description,
         amount,
-        type
+        type: type,
+        date: new Date().getTime()
     };
 
     transactions.push(transaction);
