@@ -49,35 +49,29 @@ function updateBalance() {
     displayTotal.textContent = `${currencySymbol} ${total.toFixed(2)}`;
 
     const totalCard = document.querySelector(".total");
-    if (total < 0) {
-        totalCard.style.backgroundColor = "var(--expense-color)";
-    } else if (total > 0) {
-        totalCard.style.backgroundColor = "var(--income-color)";
-    } else {
-        totalCard.style.backgroundColor = "var(--primary-color)";
+    if (totalCard) {
+        if (total < 0) {
+            totalCard.style.backgroundColor = "var(--expense-color)";
+        } else if (total > 0) {
+            totalCard.style.backgroundColor = "var(--income-color)";
+        } else {
+            totalCard.style.backgroundColor = "var(--primary-color)";
+        }
     }
 
-        // Progress Bar Update //
+    // Progress Bar Update
     const progressBar = document.getElementById("progress-bar");
+    if (progressBar) {
+        let percentage = totalIncomes > 0 ? (totalExpenses / totalIncomes) * 100 : 0;
 
-    let percentage = 0;
-
-    //Only calculate percentage if there are incomes, to avoid division by zero//
-    if (totalIncomes > 0) {
-        percentage = (total / totalIncomes) * 100;
+        if (total < 0 || percentage > 100) {
+            progressBar.style.width = "100%";
+            progressBar.classList.add("bar-danger");
+        } else {
+            progressBar.style.width = `${percentage}%`;
+            progressBar.classList.remove("bar-danger");
+        }
     }
-
-    //Add the value to the CSS variable to update the width of the progress bar//
-
-    if (percentage < 0) {
-        progressBar.style.width = "100%";
-        progressBar.classList.add("bar-danger");
-
-    } else {
-        progressBar.style.width = `${percentage}%`;
-        progressBar.classList.remove("bar-danger");
-    }
-
 }
 
 // 5. Transaction Management list
@@ -85,27 +79,25 @@ const addTransactionToDom = (transaction) => {
     const li = document.createElement("li");
     li.classList.add(transaction.type === "income" ? "income-item" : "expense-item");
 
-    // takes the language from localStorage to set the delete button text
     const lang = localStorage.getItem("language") || "en";
     const deleteText = lang === "pt" ? "Deletar" : "Delete";
 
+    // Proteção de data
     const transactionDate = transaction.date ? new Date(transaction.date) : new Date();
-
-    const dateFormatted = new Date(transaction.date).toLocaleDateString(lang === "pt" ? "pt-BR" : "en-US");
+    const dateFormatted = transactionDate.toLocaleDateString(lang === "pt" ? "pt-BR" : "en-US");
 
     li.innerHTML = `
     <div class="transaction-info">
         <span class="date">${dateFormatted}</span>
         <span class="description">${transaction.description}</span>
     </div>
-        <div class="amount-container">
-            <span>${currencySymbol} ${transaction.amount.toFixed(2)}</span>
-            <button class="delete-btn" onclick="deleteTransaction(${transaction.id})" title="${deleteText}">❌</button>
-        </div>
+    <div class="amount-container">
+        <span>${currencySymbol} ${transaction.amount.toFixed(2)}</span>
+        <button class="delete-btn" onclick="deleteTransaction(${transaction.id})" title="${deleteText}">❌</button>
+    </div>
     `;
     transactionList.appendChild(li);
 };
-
 
 const deleteTransaction = (id) => {
     transactions = transactions.filter(t => t.id !== id);
@@ -117,7 +109,7 @@ const updateLocalStorage = () => {
     localStorage.setItem("transactions", JSON.stringify(transactions));
 };
 
-// 6. Form
+// 6. Form Submit
 form.addEventListener("submit", (event) => {
     event.preventDefault();
     
@@ -125,7 +117,7 @@ form.addEventListener("submit", (event) => {
     const amount = inputAmount.valueAsNumber;
     const type = inputType.value;
 
-    if (!description || isNaN(amount)) return;
+    if (!description || isNaN(amount) || amount <= 0) return;
 
     const transaction = {
         id: Math.floor(Math.random() * 1000000),
@@ -136,34 +128,37 @@ form.addEventListener("submit", (event) => {
     };
 
     transactions.push(transaction);
-    updateBalance();
-    addTransactionToDom(transaction);
     updateLocalStorage();
+    renderApp();
     form.reset();
 });
 
-// 7. Render and Language Switch
-
+// 7. Language Switch
 const switchLanguage = (lang) => {
     const translatableElements = document.querySelectorAll(".translatable");
     
     translatableElements.forEach(element => {
         const text = element.getAttribute(`data-${lang}`);
+        const altText = element.getAttribute(`data-alt-${lang}`); // New line to catch the alt translation
         
         if (text) {
-            //translate text content or placeholder
             if (element.tagName === "INPUT") {
                 element.placeholder = text;
             } else {
                 element.textContent = text;
             }
 
-            //if element has title attribute, translate it too
+            // --- Logic for Title ---
             if (element.hasAttribute('title')) {
                 element.setAttribute('title', text);
             }
+
+            // --- Logic for Alt (Specific for Images) ---
+            if (element.tagName === "IMG" && altText) {
+                element.setAttribute('alt', altText);
+            }
             
-            // if the element is inside a button, translate the button's title attribute too
+            // Logic for parent buttons (as we did before)
             const parentButton = element.closest('button');
             if (parentButton && parentButton.hasAttribute('title')) {
                 parentButton.setAttribute('title', text);
@@ -171,12 +166,11 @@ const switchLanguage = (lang) => {
         }
     });
 
-    // updates global settings
+    // Global settings...
     document.documentElement.lang = (lang === "pt") ? "pt-BR" : "en";
     currencySymbol = (lang === "pt") ? "R$" : "US$";
     localStorage.setItem("language", lang);
 };
-
 
 
 const renderApp = () => {
@@ -191,7 +185,7 @@ const init = () => {
     renderApp();
 };
 
-// 8. Events and Initialization language
+// 8. Initialization
 langEnBtn.addEventListener("click", () => {
     switchLanguage("en");
     renderApp();
