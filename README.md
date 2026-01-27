@@ -2,6 +2,10 @@
 
 A modern, intuitive, and high-performance personal finance application. This tool allows users to manage their daily transactions with real-time feedback, featuring a bilingual interface and a persistent dark mode experience.
 
+![alt text](screenshots/eng-light.png)
+
+![alt text](screenshots/port-dark.png)
+
 ## 🚀 Key Features
 
 - **Transaction Management:** Easily add and delete income or expense entries.
@@ -13,10 +17,10 @@ A modern, intuitive, and high-performance personal finance application. This too
 
 ## 🛠️ Tech Stack
 
-![HTML5](https://img.shields.io)
-![CSS3](https://img.shields.io)
-![JavaScript](https://img.shields.io)
-![Git](https://img.shields.io)
+- **HTML5** & **CSS3** (Flexbox/Custom Properties)
+- **JavaScript** (ES6+ & LocalStorage)
+- **Git** (Version Control)
+
 
 ## ♿ Accessibility Focused (a11y)
 
@@ -35,4 +39,6 @@ Developing this v1.0 version provided deep insights into:
 4. **I18n Logic:** Implementing a custom translation engine that preserves icons and accessibility metadata.
 
 ## 🔗 Live Demo
-Check out the live application here: [Insert your GitHub Pages Link Here]
+Check out the live application here: [https://devraph12.github.io/finance-tracker-2026/]
+
+
