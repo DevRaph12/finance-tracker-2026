@@ -56,6 +56,28 @@ function updateBalance() {
     } else {
         totalCard.style.backgroundColor = "var(--primary-color)";
     }
+
+        // Progress Bar Update //
+    const progressBar = document.getElementById("progress-bar");
+
+    let percentage = 0;
+
+    //Only calculate percentage if there are incomes, to avoid division by zero//
+    if (totalIncomes > 0) {
+        percentage = (total / totalIncomes) * 100;
+    }
+
+    //Add the value to the CSS variable to update the width of the progress bar//
+
+    if (percentage < 0) {
+        progressBar.style.width = "100%";
+        progressBar.classList.add("bar-danger");
+
+    } else {
+        progressBar.style.width = `${percentage}%`;
+        progressBar.classList.remove("bar-danger");
+    }
+
 }
 
 // 5. Transaction Management list
