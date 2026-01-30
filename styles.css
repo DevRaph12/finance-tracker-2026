@@ -25,6 +25,7 @@ body.dark-mode {
 html {
     box-sizing: border-box;
     font-size: 16px;
+    height: 100%;
 }
 
 *, *:before, *:after {
@@ -34,14 +35,14 @@ html {
 }
 
 body {
-    min-height: 100vh;
+    min-height: 100%;
     line-height: 1.6;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     -webkit-font-smoothing: antialiased;
     background: var(--body-bg);
     background-attachment: fixed;
     margin: 0;
-    
+    height: auto; 
     color: var(--text-color);
     transition: 0.3s ease, color 0.3s ease;
 }
