@@ -45,6 +45,7 @@ body {
     height: auto; 
     color: var(--text-color);
     transition: 0.3s ease, color 0.3s ease;
+    padding-bottom: 50px;
 }
 
 /* Títulos */
