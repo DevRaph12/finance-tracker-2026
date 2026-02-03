@@ -114,7 +114,7 @@ form.addEventListener("submit", (event) => {
     event.preventDefault();
     
     const description = inputDescription.value;
-    const amount = inputAmount.valueAsNumber;
+    const amount = Number(inputAmount.value);
     const type = inputType.value;
 
     if (!description || isNaN(amount) || amount <= 0) return;
