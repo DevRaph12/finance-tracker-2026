@@ -212,6 +212,9 @@ li {
     align-items: center;    
     border-bottom: 1px solid var(--input-border);
     color: var(--text-color); 
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
 }
 
 
@@ -239,6 +242,7 @@ li {
     font-weight: bold;
     flex-grow: 1;
     color: var(--text-color); 
+    word-break: break-word; 
 }
 
 #transaction-list {
@@ -265,7 +269,8 @@ li {
     flex-direction: row; 
     align-items: center; 
     gap: 12px;
-    flex-grow: 1; 
+    flex: 1; 
+    min-width: 120px; 
 }
 
 
@@ -294,4 +299,35 @@ li {
 .bar-danger{
     background-color: var(--expense-color) !important;
     box-shadow: 0 0 10px var(--expense-color);
+}
+
+@media (max-width: 418px) {
+     #resume-container {
+        flex-direction: column;
+        margin-top: 1rem;
+    }
+
+     .resume-item {
+        width: 100%;
+    }
+
+     .transaction-info {
+        flex-direction: column; 
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+     .amount-container {
+        width: 100%; 
+        justify-content: space-between;
+        border-top: 1px dashed var(--input-border); 
+        padding-top: 8px;
+        justify-content: space-between;
+    }
+
+     #finance-card, #resume-container, #form-container {
+        width: 95%;
+        padding: 1rem;
+    }
+
 }
